@@ -1,0 +1,56 @@
+{
+  "entities": {
+    "users": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "messages": {
+      "title": "Message",
+      "description": "A single chat message",
+      "type": "object",
+      "properties": {
+        "role": { "type": "string", "enum": ["user", "assistant"] },
+        "content": { "type": "string" },
+        "timestamp": { "type": "integer" },
+        "sources": { "type": "array" },
+        "imageUrl": { "type": "string" },
+        "isImage": { "type": "boolean" }
+      },
+      "required": ["role", "content", "timestamp"]
+    },
+    "tasks": {
+      "title": "Task",
+      "description": "A single task in a to-do list",
+      "type": "object",
+      "properties": {
+        "text": { "type": "string" },
+        "completed": { "type": "boolean" },
+        "timestamp": { "type": "integer" }
+      },
+      "required": ["text", "completed", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "users",
+      "description": "User profile documents"
+    },
+    "/users/{userId}/messages/{messageId}": {
+      "schema": "messages",
+      "description": "Individual chat messages"
+    },
+    "/users/{userId}/tasks/{taskId}": {
+      "schema": "tasks",
+      "description": "Individual tasks"
+    }
+  }
+}
